@@ -33,6 +33,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index walletConnected={walletConnected} />} />
               <Route path="/feed" element={<Feed />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/tip" element={<TipPage walletConnected={walletConnected} />} />
               <Route path="/tip/:id" element={<TipDetail />} />
               <Route path="/profile/:address" element={<Profile />} />
