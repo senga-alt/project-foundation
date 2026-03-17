@@ -75,6 +75,7 @@ function generateMockTips(): TipEntry[] {
       message: MOCK_MESSAGES[i % MOCK_MESSAGES.length],
       timestamp: new Date(now - i * randomBetween(300_000, 7_200_000)),
       status,
+      blockHeight: status === 'confirmed' ? 150_000 + Math.floor(Math.random() * 5000) : undefined,
     };
   });
 }
