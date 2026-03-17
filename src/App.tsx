@@ -8,6 +8,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Navbar } from '@/components/Navbar';
 import Index from './pages/Index';
 import Feed from './pages/Feed';
+import Leaderboard from './pages/Leaderboard';
 import TipPage from './pages/Tip';
 import TipDetail from './pages/TipDetail';
 import Profile from './pages/Profile';
