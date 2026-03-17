@@ -68,6 +68,12 @@ export function Navbar({ walletConnected, onToggleWallet }: NavbarProps) {
                   {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                   {copied ? 'Copied!' : 'Copy address'}
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild className="gap-2">
+                  <Link to={`/profile/${mockAddress}`}>
+                    <User className="h-3.5 w-3.5" />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={onToggleWallet} className="gap-2 text-destructive">
                   <LogOut className="h-3.5 w-3.5" />
