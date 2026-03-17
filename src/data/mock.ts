@@ -8,6 +8,17 @@ export interface TipEntry {
   message?: string;
   timestamp: Date;
   status: 'pending' | 'confirmed' | 'failed';
+  blockHeight?: number;
+}
+
+export function getTipsForAddress(address: string) {
+  const sent = MOCK_TIPS.filter(t => t.sender === address);
+  const received = MOCK_TIPS.filter(t => t.recipient === address);
+  return { sent, received };
+}
+
+export function getTipById(id: string) {
+  return MOCK_TIPS.find(t => t.id === id) ?? null;
 }
 
 export const MOCK_ADDRESSES = [
