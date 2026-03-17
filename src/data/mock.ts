@@ -87,3 +87,35 @@ export const MOCK_STATS = {
   totalVolumeSTX: 384_291.42,
   activeUsers: 2_341,
 };
+
+export interface LeaderboardEntry {
+  address: string;
+  totalSTX: number;
+  tipCount: number;
+  rank: number;
+}
+
+export function getLeaderboard() {
+  const sentMap = new Map<string, { total: number; count: number }>();
+  const receivedMap = new Map<string, { total: number; count: number }>();
+
+  for (const tip of MOCK_TIPS) {
+    const s = sentMap.get(tip.sender) ?? { total: 0, count: 0 };
+    s.total += tip.amountSTX;
+    s.count++;
+    sentMap.set(tip.sender, s);
+
+    const r = receivedMap.get(tip.recipient) ?? { total: 0, count: 0 };
+    r.total += tip.amountSTX;
+    r.count++;
+    receivedMap.set(tip.recipient, r);
+  }
+
+  const toSorted = (map: Map<string, { total: number; count: number }>): LeaderboardEntry[] =>
+    Array.from(map.entries())
+      .map(([address, { total, count }]) => ({ address, totalSTX: parseFloat(total.toFixed(2)), tipCount: count, rank: 0 }))
+      .sort((a, b) => b.totalSTX - a.totalSTX)
+      .map((e, i) => ({ ...e, rank: i + 1 }));
+
+  return { topTippers: toSorted(sentMap), mostTipped: toSorted(receivedMap) };
+}

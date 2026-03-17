@@ -45,6 +45,12 @@ export function Navbar({ walletConnected, onToggleWallet }: NavbarProps) {
             Home
           </Link>
           <Link
+            to="/leaderboard"
+            className="text-[length:var(--text-sm)] text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Leaderboard
+          </Link>
+          <Link
             to="/feed"
             className="text-[length:var(--text-sm)] text-muted-foreground hover:text-foreground transition-colors"
           >

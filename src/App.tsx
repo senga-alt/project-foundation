@@ -8,6 +8,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Navbar } from '@/components/Navbar';
 import Index from './pages/Index';
 import Feed from './pages/Feed';
+import Leaderboard from './pages/Leaderboard';
 import TipPage from './pages/Tip';
 import TipDetail from './pages/TipDetail';
 import Profile from './pages/Profile';
@@ -32,6 +33,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index walletConnected={walletConnected} />} />
               <Route path="/feed" element={<Feed />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/tip" element={<TipPage walletConnected={walletConnected} />} />
               <Route path="/tip/:id" element={<TipDetail />} />
               <Route path="/profile/:address" element={<Profile />} />
