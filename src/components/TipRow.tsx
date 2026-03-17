@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { AddressPill } from './AddressPill';
 import { AmountDisplay } from './AmountDisplay';
@@ -24,18 +25,31 @@ function timeAgo(date: Date): string {
 
 export function TipRow({ tip }: TipRowProps) {
   const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
   const hasMessage = !!tip.message;
+
+  const handleRowClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on address pills, chevron, or interactive elements
+    const target = e.target as HTMLElement;
+    if (target.closest('a') || target.closest('[data-chevron]')) return;
+    navigate(`/tip/${tip.id}`);
+  };
+
+  const handleChevronClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpanded(!expanded);
+  };
 
   return (
     <div className="border-b border-border last:border-b-0 transition-colors hover:bg-muted/40">
-      <button
-        onClick={() => hasMessage && setExpanded(!expanded)}
+      <div
+        onClick={handleRowClick}
         className={cn(
-          'flex w-full items-center gap-3 px-4 py-3 text-left',
-          hasMessage && 'cursor-pointer'
+          'flex w-full items-center gap-3 px-4 py-3 text-left cursor-pointer'
         )}
-        disabled={!hasMessage}
-        aria-expanded={hasMessage ? expanded : undefined}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => e.key === 'Enter' && navigate(`/tip/${tip.id}`)}
       >
         <span className="shrink-0 text-[length:var(--text-xs)] text-muted-foreground tabular-nums w-14">
           {timeAgo(tip.timestamp)}
@@ -52,14 +66,22 @@ export function TipRow({ tip }: TipRowProps) {
         <TxStatus status={tip.status} className="hidden sm:inline-flex w-20" />
 
         {hasMessage && (
-          <ChevronDown
-            className={cn(
-              'h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200',
-              expanded && 'rotate-180'
-            )}
-          />
+          <button
+            data-chevron
+            onClick={handleChevronClick}
+            className="p-1 -m-1"
+            aria-expanded={expanded}
+            aria-label="Toggle message"
+          >
+            <ChevronDown
+              className={cn(
+                'h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200',
+                expanded && 'rotate-180'
+              )}
+            />
+          </button>
         )}
-      </button>
+      </div>
 
       <AnimatePresence>
         {expanded && tip.message && (

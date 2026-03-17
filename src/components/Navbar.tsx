@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Wallet, Copy, LogOut, Check } from 'lucide-react';
+import { Wallet, Copy, LogOut, Check, User } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { Button } from '@/components/ui/button';
 import {
@@ -67,6 +67,12 @@ export function Navbar({ walletConnected, onToggleWallet }: NavbarProps) {
                 <DropdownMenuItem onClick={handleCopy} className="gap-2">
                   {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                   {copied ? 'Copied!' : 'Copy address'}
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="gap-2">
+                  <Link to={`/profile/${mockAddress}`}>
+                    <User className="h-3.5 w-3.5" />
+                    Profile
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={onToggleWallet} className="gap-2 text-destructive">
