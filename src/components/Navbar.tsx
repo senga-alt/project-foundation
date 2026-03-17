@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Wallet, Copy, LogOut, Check } from 'lucide-react';
+import { Wallet, Copy, LogOut, Check, User } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { Button } from '@/components/ui/button';
 import {
